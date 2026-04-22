@@ -1,0 +1,442 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Sudoku Connect – The Definitive Sudoku Experience</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      background: #f9f9f9;
+      color: #1a1a1a;
+      line-height: 1.7;
+    }
+
+    /* ── Header ── */
+    header {
+      background: linear-gradient(135deg, #1c3faa 0%, #2d6be4 100%);
+      color: #fff;
+      text-align: center;
+      padding: 56px 24px 40px;
+    }
+    header h1 { font-size: 2.4rem; font-weight: 800; letter-spacing: -0.5px; }
+    header p.subtitle { margin-top: 10px; font-size: 1.1rem; opacity: 0.88; }
+
+    /* ── Language switcher ── */
+    .lang-bar {
+      margin-top: 20px;
+      display: flex;
+      justify-content: center;
+      gap: 6px;
+    }
+    .lang-btn {
+      background: rgba(255,255,255,0.15);
+      border: 1px solid rgba(255,255,255,0.35);
+      color: #fff;
+      padding: 5px 16px;
+      border-radius: 20px;
+      font-size: 0.85rem;
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+    .lang-btn:hover { background: rgba(255,255,255,0.28); }
+    .lang-btn.active { background: rgba(255,255,255,0.9); color: #1c3faa; font-weight: 700; }
+
+    /* ── Main ── */
+    main { max-width: 800px; margin: 0 auto; padding: 48px 24px 80px; }
+
+    /* Language sections — only active one shown */
+    .lang-section { display: none; }
+    .lang-section.active { display: block; }
+
+    /* ── Section titles ── */
+    .section-title {
+      font-size: 1.45rem;
+      font-weight: 700;
+      margin: 0 0 24px;
+      padding-bottom: 10px;
+      border-bottom: 2px solid #e5e7eb;
+    }
+
+    /* ── Feature cards ── */
+    .features { display: flex; flex-direction: column; gap: 18px; margin-bottom: 52px; }
+    .card {
+      background: #fff;
+      border-radius: 14px;
+      padding: 26px 26px 22px;
+      box-shadow: 0 1px 4px rgba(0,0,0,0.07), 0 4px 16px rgba(0,0,0,0.05);
+    }
+    .card-header { display: flex; align-items: flex-start; gap: 12px; margin-bottom: 10px; }
+    .card-icon { font-size: 1.5rem; line-height: 1; flex-shrink: 0; }
+    .card-title { font-size: 1rem; font-weight: 700; color: #1c3faa; }
+    .card-body { font-size: 0.94rem; color: #444; }
+    .card-body ul { margin-top: 8px; padding-left: 20px; }
+    .card-body li { margin-bottom: 5px; }
+    .card-body strong { color: #1a1a1a; }
+
+    /* ── Support ── */
+    .support-section { margin-bottom: 52px; }
+    .support-section p { font-size: 0.95rem; color: #444; }
+    .support-section a { color: #2d6be4; text-decoration: none; }
+    .support-section a:hover { text-decoration: underline; }
+
+    /* ── Privacy ── */
+    .privacy-section h3 { font-size: 1rem; font-weight: 700; margin: 22px 0 7px; color: #1a1a1a; }
+    .privacy-section p, .privacy-section li { font-size: 0.92rem; color: #555; margin-bottom: 5px; }
+    .privacy-section ul { padding-left: 20px; margin-bottom: 8px; }
+    .privacy-section a { color: #2d6be4; text-decoration: none; }
+    .privacy-section a:hover { text-decoration: underline; }
+    .effective-date { font-size: 0.85rem; color: #888; margin-bottom: 18px; }
+
+    /* ── Footer ── */
+    footer {
+      text-align: center;
+      padding: 24px;
+      font-size: 0.82rem;
+      color: #aaa;
+      border-top: 1px solid #e5e7eb;
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <h1>Sudoku Connect</h1>
+  <p class="subtitle" id="header-subtitle">The Definitive Sudoku Experience</p>
+  <div class="lang-bar">
+    <button class="lang-btn active" onclick="setLang('en')">English</button>
+    <button class="lang-btn" onclick="setLang('zh-TW')">繁體中文</button>
+    <button class="lang-btn" onclick="setLang('zh-CN')">简体中文</button>
+  </div>
+</header>
+
+<main>
+
+  <!-- ══════════════ ENGLISH ══════════════ -->
+  <div class="lang-section active" id="lang-en">
+
+    <h2 class="section-title">🌟 Key Features</h2>
+    <div class="features">
+
+      <div class="card">
+        <div class="card-header">
+          <span class="card-icon">1️⃣</span>
+          <span class="card-title">100% Pure Logic: Unique Solutions (No Guessing)</span>
+        </div>
+        <div class="card-body">
+          <p>We despise trial and error. Every single puzzle is rigorously verified by algorithms to ensure a unique solution solvable entirely through logical deduction. Upon completion, the system automatically displays the specific solving techniques used for that level, helping you bridge the gap between amateur and master.</p>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-header">
+          <span class="card-icon">2️⃣</span>
+          <span class="card-title">Tournament Grade Standards</span>
+        </div>
+        <div class="card-body">
+          <ul>
+            <li><strong>Difficulty Calibration:</strong> Classic 9×9 puzzles are strictly capped at SE 4.0 (Sudoku Explainer) and below, perfectly aligning with international tournament standards.</li>
+            <li><strong>Beginner Friendly:</strong> A dedicated 6×6 mode lets newcomers grasp core logic principles without the overwhelm of a full grid.</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-header">
+          <span class="card-icon">3️⃣</span>
+          <span class="card-title">First-of-its-Kind: Bluetooth Local Multiplayer</span>
+        </div>
+        <div class="card-body">
+          <p>Sudoku is no longer a solitary sport. Connect with friends via Bluetooth for real-time head-to-head battles:</p>
+          <ul>
+            <li><strong>Speed Race:</strong> A pure test of mental agility. Who finishes the grid first?</li>
+            <li><strong>Cell Grab:</strong> A strategic battle for territory. Claim the grid, one cell at a time.</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-header">
+          <span class="card-icon">4️⃣</span>
+          <span class="card-title">Diverse Variants &amp; Global Challenges</span>
+        </div>
+        <div class="card-body">
+          <ul>
+            <li><strong>Exotic Variants:</strong> Includes Diagonal, Killer, Odd/Even, and more. Our puzzle library is constantly expanding.</li>
+            <li><strong>Global Rankings:</strong> Take on the Daily Puzzle and compete with players worldwide to claim your spot on the leaderboards.</li>
+          </ul>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="support-section">
+      <h2 class="section-title">🛠️ Support &amp; Contact</h2>
+      <p>If you have any suggestions, feedback, or encounter any technical issues, please feel free to reach out:</p>
+      <p style="margin-top:10px;">📧 <a href="mailto:webber1028@gmail.com">webber1028@gmail.com</a></p>
+    </div>
+
+    <div class="privacy-section">
+      <h2 class="section-title">🔒 Privacy Policy</h2>
+      <p class="effective-date">Effective Date: 2026-04-07</p>
+      <p>The Application utilizes third-party services that have their own Privacy Policy about handling data. Below are the links to the Privacy Policy of the third-party service providers used by the Application:</p>
+      <ul style="margin-top:10px; margin-bottom:16px;">
+        <li><a href="https://support.google.com/admob/answer/6128543" target="_blank">AdMob</a></li>
+        <li><a href="https://firebase.google.com/support/privacy" target="_blank">Google Analytics for Firebase</a></li>
+        <li><a href="https://firebase.google.com/support/privacy" target="_blank">Firebase Crashlytics</a></li>
+      </ul>
+      <h3>Information Disclosure</h3>
+      <p>The Service Provider may disclose User Provided and Automatically Collected Information:</p>
+      <ul>
+        <li>As required by law, such as to comply with a subpoena, or similar legal process.</li>
+        <li>When they believe in good faith that disclosure is necessary to protect their rights, protect your safety or the safety of others, investigate fraud, or respond to a government request.</li>
+        <li>With their trusted service providers who work on their behalf, do not have an independent use of the information we disclose to them, and have agreed to adhere to the rules set forth in this privacy statement.</li>
+      </ul>
+      <h3>Opt-Out Rights</h3>
+      <p>You can stop all collection of information by the Application easily by uninstalling it. You may use the standard uninstall processes available as part of your mobile device or via the mobile application marketplace or network.</p>
+      <h3>Data Retention Policy</h3>
+      <p>The Service Provider will retain User Provided data for as long as you use the Application and for a reasonable time thereafter. If you'd like them to delete User Provided Data, please contact <a href="mailto:webber1028@gmail.com">webber1028@gmail.com</a> and they will respond in a reasonable time.</p>
+      <h3>Children</h3>
+      <p>The Service Provider does not use the Application to knowingly solicit data from or market to children under the age of 13. If the Service Provider discovers that a child under 13 has provided personal information, they will immediately delete this from their servers. If you are a parent or guardian and are aware that your child has provided us with personal information, please contact the Service Provider so necessary actions can be taken.</p>
+      <h3>Security</h3>
+      <p>The Service Provider is concerned about safeguarding the confidentiality of your information and provides physical, electronic, and procedural safeguards to protect information processed and maintained.</p>
+      <h3>Changes</h3>
+      <p>This Privacy Policy may be updated from time to time. The Service Provider will notify you of any changes by updating this page. You are advised to consult this Privacy Policy regularly for any changes, as continued use is deemed approval of all changes.</p>
+      <h3>Your Consent</h3>
+      <p>By using the Application, you are consenting to the processing of your information as set forth in this Privacy Policy now and as amended by us.</p>
+      <h3>Contact Us</h3>
+      <p>If you have any questions regarding privacy while using the Application, please contact <a href="mailto:webber1028@gmail.com">webber1028@gmail.com</a>.</p>
+    </div>
+
+  </div><!-- /lang-en -->
+
+
+  <!-- ══════════════ 繁體中文 ══════════════ -->
+  <div class="lang-section" id="lang-zh-TW">
+
+    <h2 class="section-title">🌟 App 特色 | Key Features</h2>
+    <div class="features">
+
+      <div class="card">
+        <div class="card-header">
+          <span class="card-icon">1️⃣</span>
+          <span class="card-title">純粹邏輯：唯一解保證 (No Guessing)</span>
+        </div>
+        <div class="card-body">
+          <p>我們厭惡盲目試錯。App 內的每一道題目都經過嚴格演算法校驗，確保具備唯一解，且完全可以透過邏輯推理完成。完成後，系統會自動顯示該關卡所運用的解題技巧。</p>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-header">
+          <span class="card-icon">2️⃣</span>
+          <span class="card-title">賽事級標準 (Tournament Grade)</span>
+        </div>
+        <div class="card-body">
+          <ul>
+            <li><strong>難度分級：</strong>經典 9x9 題目嚴格控制在 SE 4.0 (Sudoku Explainer) 以下，完美貼近國際數獨大賽水準。</li>
+            <li><strong>新手友善：</strong>特別提供 6x6 模式，讓初學者無痛掌握邏輯。</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-header">
+          <span class="card-icon">3️⃣</span>
+          <span class="card-title">首創：藍牙在地對戰 (Local Multiplayer)</span>
+        </div>
+        <div class="card-body">
+          <p>透過藍牙與好友面對面即時較量：</p>
+          <ul>
+            <li><strong>競賽模式 (Speed Race)：</strong>比拼解題速度，分秒必爭。</li>
+            <li><strong>搶佔格子 (Cell Grab)：</strong>結合策略與速度的版圖爭奪戰。</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-header">
+          <span class="card-icon">4️⃣</span>
+          <span class="card-title">多樣玩法與全球挑戰</span>
+        </div>
+        <div class="card-body">
+          <ul>
+            <li><strong>花式變體：</strong>包含對角線、殺手、奇偶數等玩法，題庫持續擴充。</li>
+            <li><strong>全球排名：</strong>挑戰每日謎題 (Daily Puzzle)，與全世界玩家同場競技。</li>
+          </ul>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="support-section">
+      <h2 class="section-title">🛠️ 技術支援與聯絡方式</h2>
+      <p>如果您有任何建議、反饋或遇到技術問題，請隨時透過以下管道聯繫我：</p>
+      <p style="margin-top:10px;">📧 <a href="mailto:webber1028@gmail.com">webber1028@gmail.com</a></p>
+    </div>
+
+    <div class="privacy-section">
+      <h2 class="section-title">🔒 隱私權政策 | Privacy Policy</h2>
+      <p class="effective-date">生效日期：2026-04-07</p>
+      <p>本應用程式使用以下第三方服務，這些服務擁有各自的隱私權政策：</p>
+      <ul style="margin-top:10px; margin-bottom:16px;">
+        <li><a href="https://support.google.com/admob/answer/6128543" target="_blank">AdMob</a></li>
+        <li><a href="https://firebase.google.com/support/privacy" target="_blank">Google Analytics for Firebase</a></li>
+        <li><a href="https://firebase.google.com/support/privacy" target="_blank">Firebase Crashlytics</a></li>
+      </ul>
+      <h3>資訊揭露</h3>
+      <p>服務提供者可能在以下情況揭露用戶資訊：</p>
+      <ul>
+        <li>依法律要求，例如配合傳票或類似法律程序。</li>
+        <li>基於善意認為揭露資訊對於保護其權利、保護您或他人安全、調查詐欺或回應政府要求是必要的。</li>
+        <li>與代表其工作的受信任服務提供商共享，這些提供商同意遵守本隱私聲明。</li>
+      </ul>
+      <h3>退出權利</h3>
+      <p>您可以透過解除安裝應用程式，輕鬆停止所有資訊收集。</p>
+      <h3>資料保留政策</h3>
+      <p>服務提供者將在您使用應用程式期間及之後合理時間內保留用戶提供的資料。如需刪除，請聯繫 <a href="mailto:webber1028@gmail.com">webber1028@gmail.com</a>。</p>
+      <h3>兒童保護</h3>
+      <p>本應用程式不針對 13 歲以下兒童收集資料。若發現兒童提供了個人資訊，服務提供者將立即從伺服器中刪除。如有疑慮，請聯繫服務提供者。</p>
+      <h3>安全性</h3>
+      <p>服務提供者重視您資訊的機密性，並提供實體、電子及程序性保護措施。</p>
+      <h3>政策變更</h3>
+      <p>本隱私權政策可能不定期更新。服務提供者將透過更新此頁面通知您任何變更。繼續使用即視為同意所有變更。</p>
+      <h3>您的同意</h3>
+      <p>使用本應用程式，即表示您同意依本隱私權政策處理您的資訊。</p>
+      <h3>聯絡我們</h3>
+      <p>如有任何隱私相關問題，請透過電子郵件聯繫：<a href="mailto:webber1028@gmail.com">webber1028@gmail.com</a>。</p>
+    </div>
+
+  </div><!-- /lang-zh-TW -->
+
+
+  <!-- ══════════════ 简体中文 ══════════════ -->
+  <div class="lang-section" id="lang-zh-CN">
+
+    <h2 class="section-title">🌟 App 特色 | Key Features</h2>
+    <div class="features">
+
+      <div class="card">
+        <div class="card-header">
+          <span class="card-icon">1️⃣</span>
+          <span class="card-title">纯粹逻辑：唯一解保证 (No Guessing)</span>
+        </div>
+        <div class="card-body">
+          <p>我们厌恶盲目试错。App 内的每一道题目都经过严格算法校验，确保具备唯一解，且完全可以透过逻辑推理完成，绝不需要无谓的猜测。完成后，系统会自动显示该关卡所运用的解题技巧。</p>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-header">
+          <span class="card-icon">2️⃣</span>
+          <span class="card-title">赛事级标准 (Tournament Grade)</span>
+        </div>
+        <div class="card-body">
+          <ul>
+            <li><strong>难度分级：</strong>经典 9x9 题目严格控制在 SE 4.0 (Sudoku Explainer) 以下，完美贴近国际数独大赛题目水准。</li>
+            <li><strong>新手友好：</strong>特别提供 6x6 模式，让初学者无痛掌握核心逻辑。</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-header">
+          <span class="card-icon">3️⃣</span>
+          <span class="card-title">首创：蓝牙本地对战 (Local Multiplayer)</span>
+        </div>
+        <div class="card-body">
+          <p>通过蓝牙与好友面对面即时较量：</p>
+          <ul>
+            <li><strong>竞赛模式 (Speed Race)：</strong>比拼解题速度，分秒必争。</li>
+            <li><strong>抢占格子 (Cell Grab)：</strong>结合策略与速度的版图争夺战。</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-header">
+          <span class="card-icon">4️⃣</span>
+          <span class="card-title">多样玩法与全球挑战</span>
+        </div>
+        <div class="card-body">
+          <ul>
+            <li><strong>花式变体：</strong>包含对角线、杀手、奇偶数等玩法，题库持续扩充。</li>
+            <li><strong>全球排名：</strong>挑战每日谜题 (Daily Puzzle)，与全世界玩家同场竞技。</li>
+          </ul>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="support-section">
+      <h2 class="section-title">🛠️ 技术支持与联系方式</h2>
+      <p>如果您有任何建议、反馈或遇到技术问题，请随时通过以下渠道联系我：</p>
+      <p style="margin-top:10px;">📧 <a href="mailto:webber1028@gmail.com">webber1028@gmail.com</a></p>
+    </div>
+
+    <div class="privacy-section">
+      <h2 class="section-title">🔒 隐私政策 | Privacy Policy</h2>
+      <p class="effective-date">生效日期：2026-04-07</p>
+      <p>本应用程序使用以下第三方服务，这些服务拥有各自的隐私政策：</p>
+      <ul style="margin-top:10px; margin-bottom:16px;">
+        <li><a href="https://support.google.com/admob/answer/6128543" target="_blank">AdMob</a></li>
+        <li><a href="https://firebase.google.com/support/privacy" target="_blank">Google Analytics for Firebase</a></li>
+        <li><a href="https://firebase.google.com/support/privacy" target="_blank">Firebase Crashlytics</a></li>
+      </ul>
+      <h3>信息披露</h3>
+      <p>服务提供商可能在以下情况披露用户信息：</p>
+      <ul>
+        <li>依法律要求，例如配合传票或类似法律程序。</li>
+        <li>基于善意认为披露信息对于保护其权利、保护您或他人安全、调查欺诈或响应政府请求是必要的。</li>
+        <li>与代表其工作的受信任服务提供商共享，这些提供商同意遵守本隐私声明。</li>
+      </ul>
+      <h3>退出权利</h3>
+      <p>您可以通过卸载应用程序，轻松停止所有信息收集。</p>
+      <h3>数据保留政策</h3>
+      <p>服务提供商将在您使用应用程序期间及之后合理时间内保留用户提供的数据。如需删除，请联系 <a href="mailto:webber1028@gmail.com">webber1028@gmail.com</a>。</p>
+      <h3>儿童保护</h3>
+      <p>本应用程序不针对 13 岁以下儿童收集数据。若发现儿童提供了个人信息，服务提供商将立即从服务器中删除。如有疑虑，请联系服务提供商。</p>
+      <h3>安全性</h3>
+      <p>服务提供商重视您信息的保密性，并提供实体、电子及程序性保护措施。</p>
+      <h3>政策变更</h3>
+      <p>本隐私政策可能不定期更新。服务提供商将通过更新此页面通知您任何变更。继续使用即视为同意所有变更。</p>
+      <h3>您的同意</h3>
+      <p>使用本应用程序，即表示您同意依本隐私政策处理您的信息。</p>
+      <h3>联系我们</h3>
+      <p>如有任何隐私相关问题，请通过电子邮件联系：<a href="mailto:webber1028@gmail.com">webber1028@gmail.com</a>。</p>
+    </div>
+
+  </div><!-- /lang-zh-CN -->
+
+</main>
+
+<footer>
+  &copy; 2026 Sudoku Connect. All rights reserved.
+</footer>
+
+<script>
+  const subtitles = {
+    'en':    'The Definitive Sudoku Experience',
+    'zh-TW': '數獨的極致體驗',
+    'zh-CN': '数独的极致体验'
+  };
+
+  function setLang(lang) {
+    // Hide all sections
+    document.querySelectorAll('.lang-section').forEach(el => el.classList.remove('active'));
+    // Show selected
+    document.getElementById('lang-' + lang).classList.add('active');
+    // Update buttons
+    document.querySelectorAll('.lang-btn').forEach(btn => btn.classList.remove('active'));
+    event.target.classList.add('active');
+    // Update subtitle
+    document.getElementById('header-subtitle').textContent = subtitles[lang];
+    // Update html lang attribute
+    document.documentElement.lang = lang;
+  }
+</script>
+
+</body>
+</html>
